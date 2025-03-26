@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Famous Paintings</title>
+</head>
+<body>
+    <h1>Famous Paintings</h1>
+
+    <!-- Filtering Form -->
+    <form method="GET" action="/">
+        <input type="text" name="artist" placeholder="Filter by Artist" value="{{ request.args.get('artist', '') }}">
+        <input type="text" name="painting" placeholder="Filter by Painting Name" value="{{ request.args.get('painting', '') }}">
+        <button type="submit">Filter</button>
+    </form>
+
+    <hr>
+
+    <!-- Display Paintings -->
+    {% if works %}
+        <ul>
+            {% for work in works %}
+                <li>
+                    <strong>{{ work[1] }}</strong> by <em>{{ work[2] }}</em>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No paintings found.</p>
+    {% endif %}
+</body>
+</html>
