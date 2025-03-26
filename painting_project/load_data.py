@@ -1,21 +1,17 @@
+import pymysql
 import pandas as pd
-import mysql.connector
 
-# Database connection
-conn = mysql.connector.connect(
+conn = pymysql.connect(
     host="localhost",
-    user="root",
-    password="mumma93322",
+    user="aditya",
+    password="Aditya04@mysql",
     database="painting_db"
 )
+
 cursor = conn.cursor()
 
 # File paths
 csv_files = {
-    "artist": "cleaned_artist.csv",
-    "canvas_size": "cleaned_canvas_size.csv",
-    "image_link": "cleaned_image_link.csv",
-    "museum": "cleaned_museum.csv",
     "museum_hours": "cleaned_museum_hours.csv",
     "product_size": "cleaned_product_size.csv",
     "subject": "cleaned_subject.csv",
