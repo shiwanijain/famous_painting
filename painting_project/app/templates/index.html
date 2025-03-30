@@ -96,15 +96,14 @@
         <form method="GET" action="/most_documented_artist">
             <button type="submit">Most Visually Documented Artist</button>
         </form>
-        <form method="GET" action="/paintings_same_country">
-            <button type="submit">Paintings by Artists in Their Own Country</button>
+        <form method="GET" action="{{ url_for('top_artists_by_paintings') }}">
+            <button type="submit" class="btn btn-primary">Top Artists by Paintings</button>
         </form>
+        
         <form method="GET" action="/paintings_multiple_styles">
             <button type="submit">Paintings with Multiple Styles</button>
         </form>
-        <form method="GET" action="{{ url_for('paintings_multiple_styles') }}">
-            <button type="submit" class="btn btn-primary">Paintings with Multiple Styles</button>
-        </form>
+        
         
         <form method="GET" action="{{ url_for('most_exhibited_artist') }}">
             <button type="submit" class="btn btn-primary">Most Exhibited Artist</button>

@@ -223,20 +223,33 @@ def most_documented_artist():
     return render_template('results.html', title="Most Visually Documented Artist",
                            headers=["Artist Name", "No. of Images"], results=result)
 
-@app.route('/paintings_same_country')
-def paintings_same_country():
+@app.route('/top-artists-by-paintings')
+def top_artists_by_paintings():
+    # Get a cursor from MySQL
     cursor = mysql.connection.cursor()
+
+    # Execute the SQL query to get top artists by paintings count
     cursor.execute("""
-        SELECT work.name AS painting_name, artist.full_name AS artist_name, museum.name AS museum_name, artist.nationality
-        FROM work
-        JOIN artist ON work.artist_id = artist.artist_id
-        JOIN museum ON work.museum_id = museum.museum_id
-        WHERE artist.nationality = museum.country
+        SELECT artist.full_name, COUNT(work.work_id) AS paintings_count
+        FROM artist
+        JOIN work ON artist.artist_id = work.artist_id
+        GROUP BY artist.full_name
+        ORDER BY paintings_count DESC
     """)
+    
+    # Fetch the results
     results = cursor.fetchall()
+    
+    # Close the cursor
     cursor.close()
-    return render_template('results.html', title="Paintings by Artists in Their Own Country",
-                           headers=["Painting Name", "Artist Name", "Museum Name", "Country"], results=results)
+
+    # Prepare the headers and title
+    headers = ["Artist Name", "Paintings Count"]
+    title = "Top Artists by Paintings"
+
+    # Render the template and pass the necessary data
+    return render_template('results.html', title=title, headers=headers, results=results)
+
 @app.route('/paintings_multiple_styles')
 def paintings_multiple_styles():
     cursor = mysql.connection.cursor()
